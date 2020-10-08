@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="display-8">
+    Crear Estudiante</h1>
+    <hr class="my-8">
+    <h3>Ingrese los datos</h3>
+        <TBODY>
+        {% for estudiante in estudiante %}
+        <tr>
+          <td>{{ estudiante.nombres }}</td>
+          <td>{{ estudiante.apellidos }}</td>
+        </tr>
+          {% endfor %}
+        </TBODY>
+      </table>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">CREAR</button>
+    </form>
+
+{% endblock %}

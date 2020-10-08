@@ -1,0 +1,11 @@
+{% extends 'nomina.html'%}
+{% block titulo %} {% endblock titulo %}
+{% block content %}
+    <div class="jumbotron">
+        <h3 class="display-8">INGRESE DATOS DEL DOCENTE</h3>
+    <form method ="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">CREAR O EDITAR</button>
+    </form>
+{% endblock %}

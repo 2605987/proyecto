@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block background  %} {% load static %} {% static 'img/colegio-bg.jpg' %} {% endblock %}
+{% block content %}
+<div class="jumbotron" xmlns:border-collapse="http://www.w3.org/1999/xhtml">
+    <h1 class="display-8">{% block titulo %} NOMINA DEL PERSONAL DOCENTE DE CONTRATO{% endblock titulo %}</h1>
+     <h4 class="display-8">FECHA 2019-2020</h4>
+    <hr class="my-4">
+  </div>
+{% block cuerpo %}
+<style type="text/css">
+  table, th{
+    border: 1px solid balck;
+    border-collapse: collapse;
+  }
+  th,td {
+    padding: 10px;
+  }
+  table{
+  width:100%;
+  background-color: #f1f1c1;
+  }
+</style>
+<body>
+<table style = "width: 50%" border="1">
+    <thead>
+      <tr>
+       <th>Nombre</th>
+       <th>Apellido</th>
+       <th>titulo del docente</th>
+       <th colspan="2" >OPCION</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for Nomina in nomina %}
+      <tr>
+         <td>{{Nomina.nombre_docente}}</td>
+         <td>{{Nomina.apellidos_docente}}</td>
+         <td>{{Nomina.materia_impartida}}</td>
+         <td><a href="{% url 'editar_docente' Nomina.id%}">EDITAR</a></td>
+         <td><a href="{% url 'eliminar_docente' Nomina.id%}">ELIMINAR</a></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+</table>
+{% endblock cuerpo %}
+</body>
+</html>
+{% endblock %}
