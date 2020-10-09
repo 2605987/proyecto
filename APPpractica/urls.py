@@ -32,7 +32,9 @@ urlpatterns = [
     path('crear_docente/',views.crearDocente,name = 'crear_docente'),
     path('editar_docente/<int:id>/',views.editarDocente, name= 'editar_docente' ),
     path('eliminar_docente/<int:id>/',views.eliminarDocente, name= 'eliminar_docente' ),
-
+    path('eventos/', include('eventos.urls'),name="eventos"),
     path('usuarios/',include('usuarios.urls'),name="usuarios"),
     path('admin/', admin.site.urls),
+
+
 ]

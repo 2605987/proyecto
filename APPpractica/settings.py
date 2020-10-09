@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'aplicaciones.principal',
     'core',
     'usuarios',
+    'eventos',
 ]
 
 MIDDLEWARE = [

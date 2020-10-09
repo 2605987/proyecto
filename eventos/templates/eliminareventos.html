@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titulo %} {% endblock titulo %}
+{% load static %}
+
+{% block content %}
+    <h2>Eliminar eventos</h2>
+    <form method="POST">
+        {% csrf_token %}
+            {{ form.as_p }}
+        <input type="submit" value="Eliminar eventos" />
+    </form>
+{% endblock %}
