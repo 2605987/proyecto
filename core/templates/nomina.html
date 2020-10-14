@@ -26,18 +26,22 @@
       <tr>
        <th>Nombre</th>
        <th>Apellido</th>
-       <th>titulo del docente</th>
+       <th>Materia</th>
+      {% if user.rolusuario.rol.nombre == "SECRETARIA"%}
        <th colspan="2" >OPCION</th>
+      {% endif %}
       </tr>
     </thead>
     <tbody>
-     {% for Nomina in nomina %}
+    {% for Nomina in nomina %}
       <tr>
          <td>{{Nomina.nombre_docente}}</td>
          <td>{{Nomina.apellidos_docente}}</td>
          <td>{{Nomina.materia_impartida}}</td>
+    {% if user.rolusuario.rol.nombre == "SECRETARIA"%}
          <td><a href="{% url 'editar_docente' Nomina.id%}">EDITAR</a></td>
          <td><a href="{% url 'eliminar_docente' Nomina.id%}">ELIMINAR</a></td>
+    {% endif %}
       </tr>
      {% endfor %}
     </tbody>

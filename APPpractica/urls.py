@@ -22,7 +22,9 @@ from aplicaciones.principal import views
 urlpatterns = [
     path('',views.inicio,name = 'inicio'),
     path('crear_persona/',views.crearPersona,name = 'crear_persona'),
-    path('editar_estudiante/<int:id>/',views.editarPersona,name = 'editar_estudiante'),
+    path('editar_estudiante/<int:pk>/',views.editarPersona,name = 'editar_estudiante'),
+    path('eliminar-estudiantes/<int:pk>/',views.eliminarestudiantes,name = 'eliminar-estudiantes'),
+    path('consultar-estudiantes/',views.consultarestudiantes ,name = 'consultar-estudiantes'),
     path('acerca_de/',views.about,name = 'acerca_de'),
     path('himno/',views.himno,name = 'himno'),
     path('ubicacion/',views.ubicacion,name = 'ubicacion'),

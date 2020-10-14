@@ -31,46 +31,66 @@
           Menú
           <i class="fa fa-bars"></i>
         </button>
-        {% if request.user.is_authenticated %}
+        {% if user.rolusuario.rol.nombre == "ADMINISTRADOR"%}
+            <a class="navbar-brand"
+              <a class="nav-link" href="{%  url 'inicio' %}">Inicio</a>
+            </li>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_usuarios' %}">Usuarios</a>
+            </li>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_roles' %}">Roles</a>
+            </li>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_roles_usuarios' %}">Roles y Usuarios</a>
+            </li>
+        {% endif %}
+        {% if user.rolusuario.rol.nombre == "SECRETARIA"%}
+              <a class="navbar-brand"
+              <a class="nav-link" href="{%  url 'nomina' %}">Nomina</a>
+            </li>
+              <a class="navbar-brand"
+              <a class="nav-link" href="{%  url 'consultar-estudiantes' %}">Crear Estudiantes</a>
+            </li>
+              <a class="navbar-brand"
+              <a class="nav-link" href="{%  url 'crear_docente' %}">Crear Docente</a>
+            </li>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{%  url 'consultareventos' %}">Eventos</a>
+        {% endif %}
+        {% if user.rolusuario.rol.nombre == "USUARIO" or user.rolusuario.rol.nombre == "" %}
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="{%  url 'inicio' %}">Inicio</a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="{%  url 'acerca_de' %}">Acerca</a>
+              <a class="nav-link" href="{%  url 'acerca_de' %}"></a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="{%  url 'himno' %}">Himno</a>
+              <a class="nav-link" href="{%  url 'himno' %}"></a>
             </li>
               <li class="nav-item">
               <a class="nav-link" href="{%  url 'ubicacion' %}">Contactenos</a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="{%  url 'consultareventos' %}">Eventos</a>
+              <a class="nav-link" href="{%  url 'galeria' %}"></a>
             </li>
               <li class="nav-item">
               <a class="nav-link" href="{%  url 'nomina' %}">Nomina</a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{%  url 'galeria' %}">Galeria</a>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_usuarios' %}">Usuarios</a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{%  url 'crear_persona' %}">Crear Persona</a>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_roles' %}">Roles</a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{%  url 'crear_docente' %}">Crear Docente</a>
+            <a class="navbar-brand"
+              <a class="nav-link" href="{% url 'consultar_roles_usuarios' %}">Roles y Usuarios</a>
             </li>
-            {% if user.rolusuario.rol.nombre == "ADMINISTRADOR" or user.rolusuario.rol == "" %}
-                        <a class="nav-link" href="{% url 'consultar_usuarios' %}">Usuarios</a>
-                        <a class="nav-link" href="{% url 'consultar_roles' %}">Roles</a>
-                        <a class="nav-link" href="{% url 'consultar_roles_usuarios' %}">Roles y Usuarios</a>
-            {% endif %}
+        {% endif %}
           </ul>
         </div>
-      {% else %}
-          <p>Please login to see this page.</p>
-      {% endif %}
       </div>
     </nav>
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %} {% endblock titulo %}
+
+
+{% block content %}
+<table class="table table-striped table-sm table-hover table-bordered">
+<form class="form-control" method="GET" action="{% url 'consultar-estudiantes' %}">
+        <input class="form-control" type="text" placeholder="Buscar..." name="buscar" value="{{ request.GET.buscar }}">
+        <button class="form-control" type="submit">Buscar Estudiantes</button>
+    </form>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cedula</th>
+            <th>Opciones</th>
+        </tr>
+
+        {% for p in estudiantes %}
+
+        <tr>
+            <td>{{ p.nombres }}</td>
+            <td>{{ p.apellidos }}</td>
+            <td>{{ p.cedula }}</td>
+            <td><a class="nav-link" href="{% url 'editar_estudiante' p.id %}">Modificar</a></td>
+            <td><a class="nav-link" href="{% url 'eliminar-estudiantes' p.id %}">Eliminar</a></td>
+        </tr>
+
+         {% endfor %}
+    </table>
+    <a class="nav-link" href="{%  url 'crear_persona' %}">Crear Estudiantes</a>
+{% endblock %}

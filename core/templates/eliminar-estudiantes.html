@@ -1,14 +1,12 @@
 {% extends "base.html" %}
+{% block titulo %} {% endblock titulo %}
 {% load static %}
 
 {% block content %}
-    <h2>Crear Estudiantes</h2>
+    <h2>Eliminar Estudiantes</h2>
     <form method="POST">
         {% csrf_token %}
             {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-flat">
-        <i class="fas fa-save"></i> Guardar
-        </button>
+        <input type="submit" value="Eliminar Estudiantes" />
     </form>
-
 {% endblock %}

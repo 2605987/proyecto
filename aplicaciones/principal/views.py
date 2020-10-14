@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from .models import Estudiantes,Nomina
 from .forms import Estudiantesform, Nominaform
+from django.db.models import Q
 
 def base(request):
     return render(request, 'base.html', {'menu': True})
@@ -25,38 +26,54 @@ def estudiantes(request):
     }
     return render(request, 'crear_persona.html', contexto)
 
-def crearPersona(request):
-    if request.method == 'GET':
-        form = Estudiantesform()
-        contexto = {
-            'form': form
-        }
-    else:
-        form = Estudiantesform(request.POST)
-        contexto = {
-            'form': form
-        }
+def crearPersona(request,plantilla="crear_persona.html"):
+    if request.method == "POST":
+        form = Estudiantesform((request.POST or None))
         if form.is_valid():
             form.save()
-            return redirect('crear_persona')
-    return render(request, 'crear_persona.html', contexto)
+            return redirect("consultar-estudiantes")
+    else:
+        form = Estudiantesform
 
-def editarPersona(request,id):
-    estudiante = Estudiantes.objects.get(id=id)
-    if request.method == 'GET':
-        form = Estudiantesform(instance = estudiante)
-        contexto = {
-            'form': form
-        }
-    else:
-        form = Estudiantesform(instance = estudiante)
-        contexto = {
-            'form':form
-        }
+    return render(request, plantilla, {'form': form})
+
+def editarPersona(request,pk,plantilla="editar_estudiante.html"):
+    if request.method == "POST":
+        estudiantes = get_object_or_404(Estudiantes, pk=pk)
+        form = Estudiantesform(request.POST or None, instance=estudiantes)
         if form.is_valid():
             form.save()
-            return redirect('editar_estudiante')
-    return render(request, 'editar_estudiante.html', contexto)
+        return redirect('consultar-estudiantes')
+    else:
+        estudiantes= get_object_or_404(Estudiantes, pk=pk)
+        form = Estudiantesform(request.POST or None, instance=estudiantes)
+
+    return render(request, plantilla, {'form': form})
+
+def consultarestudiantes(request):
+    buscar = request.GET.get("buscar")
+    estudiantes = Estudiantes.objects.all()
+    if buscar:
+        estudiantes = Estudiantes.objects.filter(
+            Q(nombres__icontains=buscar) |
+            Q(apellidos__icontains=buscar) |
+            Q(cedula__icontains=buscar)
+        ).distinct()
+    return render(request, 'consultar-estudiantes.html', {'estudiantes': estudiantes})
+
+def eliminarestudiantes(request, pk, plantilla="eliminar-estudiantes.html"):
+
+    if request.method == "POST":
+        form = Estudiantesform((request.POST or None))
+        estudiantes = get_object_or_404(Estudiantes, pk=pk)
+        if form.is_valid():
+            estudiantes.delete()
+            return redirect('consultar-estudiantes')
+    else:
+        estudiantes= get_object_or_404(Estudiantes, pk=pk)
+        form = Estudiantesform(request.POST or None, instance=estudiantes)
+
+    return render(request, plantilla, {'form': form})
 
 
 
